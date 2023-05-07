@@ -1,6 +1,7 @@
 package com.example.sidaodemo.mapper;
 
 import com.example.sidaodemo.entity.Order;
+import com.example.sidaodemo.vo.OrderVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
  * @VERSION: 1.8
  */
 public interface OrderMapper {
-    List<Order> list(@Param("page") Integer page,@Param("pers") Integer pers);
+    List<OrderVo> list(@Param("page") Integer page, @Param("pers") Integer pers);
 
     int count();
 

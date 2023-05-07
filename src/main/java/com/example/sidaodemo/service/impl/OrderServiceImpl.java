@@ -4,6 +4,7 @@ import com.example.sidaodemo.entity.Order;
 import com.example.sidaodemo.mapper.OrderMapper;
 import com.example.sidaodemo.response.Result;
 import com.example.sidaodemo.service.OrderService;
+import com.example.sidaodemo.vo.OrderVo;
 import com.sun.corba.se.impl.oa.toa.TOA;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ public class OrderServiceImpl implements OrderService {
     public Result list(Integer page, Integer pers) {
         int temp = 0;
         boolean hasNext = false;
-        List<Order> list;
+        List<OrderVo> list;
         if (page == 1) {
             list = orderMapper.list(0, pers);
         } else {
@@ -40,7 +41,6 @@ public class OrderServiceImpl implements OrderService {
         } else {
             hasNext = false;
         }
-        System.out.println(list);
         return Result.ok().data("hasNext",hasNext).data("total", total).data("page", page).data("pers", pers).data("data", list);
     }
 

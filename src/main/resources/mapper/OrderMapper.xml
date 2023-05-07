@@ -4,35 +4,29 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.sidaodemo.mapper.OrderMapper">
 
-    <select id="list" resultType="com.example.sidaodemo.entity.Order">
-        select
-            id,
-            created_at,
-            updated_at,
-            deleted_at,
-            user_id,
-            product_name,
-            total_price,
-            `count`,
-            unit_price,
-            status,
-            pay_type
-        from
-            p_order
-        limit #{page},#{pers}
+    <select id="list" resultType="com.example.sidaodemo.vo.OrderVo">
+        select a.id,
+               a.created_at,
+               a.updated_at,
+               b.nickname,
+               b.mobile,
+               a.product_name,
+               a.total_price,
+               a.count,
+               a.unit_price,
+               a.status,
+               a.pay_type
+        from p_order a
+                 inner join p_user b on a.user_id = b.id
+            limit #{page}, #{pers}
     </select>
     <select id="count" resultType="java.lang.Integer">
-        select
-            count(id)
-        from
-            p_order
+        select count(id)
+        from p_order
     </select>
     <select id="lastUserOrder" resultType="com.example.sidaodemo.entity.Order">
-        select
-               *
-        from
-             (select * from p_order ORDER BY created_at DESC limit #{count})
-                 o
+        select *
+        from (select * from p_order ORDER BY created_at DESC limit #{count}) o
         GROUP BY o.user_id
     </select>
 </mapper>
